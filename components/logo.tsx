@@ -25,13 +25,13 @@ export function Logo({ className = "", size = "md", showText = true }: LogoProps
   }
 
   return (
-    <div className={`flex items-center space-x-2 ${className}`}>
-      <div className="relative" style={{ width: sizeMap[size], height: sizeMap[size] }}>
+    <div className={`flex items-center space-x-3 ${className}`}>
+      <div className="relative bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg p-2" style={{ width: sizeMap[size] * 1.5, height: sizeMap[size] * 1.5 }}>
         <Image
           src="/images/wellnity-logo.png"
           alt="Wellnity AI Logo"
-          width={sizeMap[size]}
-          height={sizeMap[size]}
+          width={sizeMap[size] * 1.2}
+          height={sizeMap[size] * 1.2}
           className="object-contain"
           priority
         />
