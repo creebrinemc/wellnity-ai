@@ -28,7 +28,7 @@ export function Logo({ className = "", size = "md", showText = true }: LogoProps
     <div className={`flex items-center space-x-2 ${className}`}>
       <div className="relative" style={{ width: sizeMap[size], height: sizeMap[size] }}>
         <Image
-          src="/images/google-ai-studio-2026-02-09t18-22-03.png"
+          src="/images/wellnity-logo.png"
           alt="Wellnity AI Logo"
           width={sizeMap[size]}
           height={sizeMap[size]}
