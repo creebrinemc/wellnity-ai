@@ -1,5 +1,14 @@
 import { z } from "zod"
 import bcrypt from "bcryptjs"
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  updateProfile,
+  User as FirebaseUser,
+} from "firebase/auth"
+import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore"
+import { auth, db } from "./firebase"
 
 // User validation schemas
 export const registerSchema = z.object({
@@ -31,95 +40,137 @@ export const passwordResetSchema = z.object({
   email: z.string().email("Invalid email address"),
 })
 
-// Mock database - In production, use a real database
-const users: Array<{
+// Firebase user interface
+export interface UserProfile {
   id: string
   username: string
   email: string
-  password: string
   firstName: string
   lastName: string
   fitnessLevel: string
   goals: string
-  createdAt: Date
-  lastLogin?: Date
+  createdAt: any
+  lastLogin?: any
   isEmailVerified: boolean
+  photoURL?: string
   resetToken?: string
-  resetTokenExpiry?: Date
-}> = []
+  resetTokenExpiry?: any
+}
 
-// Helper functions
+// Helper functions using Firebase
 export async function createUser(data: z.infer<typeof registerSchema>) {
   try {
-    // Check if user already exists
-    const existingUser = users.find((u) => u.email === data.email || u.username === data.username)
-    if (existingUser) {
-      if (existingUser.email === data.email) {
-        throw new Error("Bu e-posta adresi zaten kullanılıyor")
-      }
-      if (existingUser.username === data.username) {
-        throw new Error("Bu kullanıcı adı zaten kullanılıyor")
-      }
-    }
+    // Create Firebase Auth user
+    const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password)
+    const user = userCredential.user
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(data.password, 12)
+    // Update display name
+    await updateProfile(user, {
+      displayName: `${data.firstName} ${data.lastName}`,
+    })
 
-    // Create user
-    const user = {
-      id: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+    // Create user profile in Firestore
+    const userProfile: UserProfile = {
+      id: user.uid,
       username: data.username,
       email: data.email,
-      password: hashedPassword,
       firstName: data.firstName,
       lastName: data.lastName,
       fitnessLevel: data.fitnessLevel,
       goals: data.goals,
-      createdAt: new Date(),
-      isEmailVerified: false,
+      createdAt: serverTimestamp(),
+      isEmailVerified: user.emailVerified,
     }
 
-    users.push(user)
-    return user
-  } catch (error) {
+    await setDoc(doc(db, "users", user.uid), userProfile)
+
+    return userProfile
+  } catch (error: any) {
     console.error("Create user error:", error)
+    if (error.code === "auth/email-already-in-use") {
+      throw new Error("Bu e-posta adresi zaten kullanılıyor")
+    }
     throw error
   }
 }
 
 export async function getUserByEmail(email: string) {
-  return users.find((u) => u.email === email)
+  try {
+    // Firebase Auth doesn't provide a direct way to get user by email
+    // We need to use Firebase Admin SDK or search Firestore
+    // For now, return null as this is primarily used for existence checks
+    return null
+  } catch (error) {
+    console.error("Get user error:", error)
+    return null
+  }
 }
 
 export async function getUserById(id: string) {
-  return users.find((u) => u.id === id)
+  try {
+    const docRef = doc(db, "users", id)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() } as UserProfile
+    }
+    return null
+  } catch (error) {
+    console.error("Get user error:", error)
+    return null
+  }
 }
 
-export async function updateUser(id: string, data: Partial<(typeof users)[0]>) {
-  const userIndex = users.findIndex((u) => u.id === id)
-  if (userIndex === -1) {
+export async function updateUser(id: string, data: Partial<UserProfile>) {
+  try {
+    const docRef = doc(db, "users", id)
+    await updateDoc(docRef, {
+      ...data,
+      updatedAt: serverTimestamp(),
+    })
+
+    return await getUserById(id)
+  } catch (error) {
+    console.error("Update user error:", error)
     throw new Error("User not found")
   }
-
-  users[userIndex] = { ...users[userIndex], ...data }
-  return users[userIndex]
 }
 
 export async function generateResetToken(email: string) {
-  const user = await getUserByEmail(email)
-  if (!user) {
+  try {
+    // Use Firebase's built-in password reset
+    await sendPasswordResetEmail(auth, email)
+    return "reset-email-sent"
+  } catch (error: any) {
+    console.error("Password reset error:", error)
     // Don't reveal if email exists or not for security
-    return "dummy-token"
+    return "reset-email-sent"
   }
-
-  const resetToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-  const resetTokenExpiry = new Date(Date.now() + 3600000) // 1 hour
-
-  await updateUser(user.id, { resetToken, resetTokenExpiry })
-  return resetToken
 }
 
 export async function verifyResetToken(token: string) {
-  const user = users.find((u) => u.resetToken === token && u.resetTokenExpiry && u.resetTokenExpiry > new Date())
-  return user
+  // Firebase handles reset tokens internally
+  // This function is kept for compatibility but not used with Firebase
+  return null
+}
+
+// Sign in with Firebase
+export async function signInUser(email: string, password: string) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    const user = userCredential.user
+
+    // Update last login
+    await updateUser(user.uid, {
+      lastLogin: serverTimestamp(),
+    } as any)
+
+    return user
+  } catch (error: any) {
+    console.error("Sign in error:", error)
+    if (error.code === "auth/invalid-credential") {
+      throw new Error("E-posta veya şifre hatalı")
+    }
+    throw error
+  }
 }

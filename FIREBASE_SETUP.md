@@ -1,48 +1,32 @@
 # Firebase Setup Guide for Wellnity AI
 
-This guide will help you set up Firebase for the Wellnity AI application.
-
-## Prerequisites
-
-- A Google account
-- Node.js installed on your machine
+This guide will help you configure Firebase for your Wellnity AI application.
 
 ## Step 1: Create a Firebase Project
 
-1. Go to the [Firebase Console](https://console.firebase.google.com/)
-2. Click "Add project" or "Create a project"
-3. Enter your project name (e.g., "Wellnity AI")
-4. Enable or disable Google Analytics (optional)
-5. Click "Create project"
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Click "Add project" or select an existing project
+3. Follow the setup wizard to create your project
 
-## Step 2: Register Your Web App
+## Step 2: Enable Authentication
 
-1. In your Firebase project, click the web icon (</>) to add a web app
-2. Enter an app nickname (e.g., "Wellnity Web App")
-3. Check "Also set up Firebase Hosting" (optional)
-4. Click "Register app"
-5. Copy the Firebase configuration object
+1. In Firebase Console, go to **Build** > **Authentication**
+2. Click **Get Started**
+3. Enable **Email/Password** authentication
+4. (Optional) Enable other sign-in methods like Google, Apple, etc.
 
-## Step 3: Enable Authentication
+## Step 3: Create Firestore Database
 
-1. In the Firebase Console, go to "Authentication" in the left sidebar
-2. Click "Get started"
-3. Go to the "Sign-in method" tab
-4. Enable the following sign-in providers:
-   - **Email/Password**: Click, toggle "Enable", and save
-   - **Google** (optional): Click, toggle "Enable", configure OAuth consent, and save
+1. In Firebase Console, go to **Build** > **Firestore Database**
+2. Click **Create database**
+3. Choose **Start in production mode** or **Test mode**
+   - Production mode: Requires security rules (recommended)
+   - Test mode: Open access (only for development)
+4. Select your database location (choose closest to your users)
 
-## Step 4: Set Up Firestore Database
+## Step 4: Set Up Security Rules
 
-1. In the Firebase Console, go to "Firestore Database"
-2. Click "Create database"
-3. Choose "Start in production mode" (we'll add security rules later)
-4. Select your preferred Cloud Firestore location
-5. Click "Enable"
-
-### Add Security Rules
-
-After creating the database, add these security rules:
+Add these Firestore security rules:
 
 ```javascript
 rules_version = '2';
@@ -50,125 +34,129 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // Users collection
     match /users/{userId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && request.auth.uid == userId;
+      // Allow users to read and write their own data
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow admins to read all user data (optional)
+      allow read: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
     
-    // Workouts collection
+    // Workouts collection (example)
     match /workouts/{workoutId} {
-      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
-      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
-      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
-    }
-  }
-}
-```
-
-## Step 5: Set Up Storage
-
-1. In the Firebase Console, go to "Storage"
-2. Click "Get started"
-3. Choose "Start in production mode"
-4. Select your storage location
-5. Click "Done"
-
-### Add Storage Rules
-
-Add these security rules for Storage:
-
-```javascript
-rules_version = '2';
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /users/{userId}/{allPaths=**} {
       allow read: if request.auth != null;
-      allow write: if request.auth != null && request.auth.uid == userId;
+      allow write: if request.auth != null && request.auth.uid == resource.data.userId;
     }
   }
 }
 ```
 
-## Step 6: Configure Environment Variables
+## Step 5: Get Firebase Configuration
 
-1. Copy your Firebase configuration from the Firebase Console
-2. Update your `.env.local` file with the following values:
+1. In Firebase Console, go to **Project Settings** (gear icon)
+2. Scroll down to **Your apps** section
+3. Click the **Web** icon (</>)
+4. Register your app with a nickname (e.g., "Wellnity AI Web")
+5. Copy the Firebase configuration object
+
+## Step 6: Update Environment Variables
+
+Update your `.env.local` file with the Firebase configuration:
 
 ```bash
-NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
+# Firebase Configuration
+NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key-here
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project-id.firebaseapp.com
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
 NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
-## Step 7: Install Dependencies
+## Step 7: (Optional) Set Up Firebase Admin SDK
 
-Run the following command to install Firebase:
+For server-side operations:
+
+1. In Firebase Console, go to **Project Settings** > **Service Accounts**
+2. Click **Generate new private key**
+3. Save the JSON file securely
+4. Add to `.env.local` as a single-line JSON string:
+
+```bash
+FIREBASE_SERVICE_ACCOUNT_KEY='{"type":"service_account","project_id":"your-project-id",...}'
+```
+
+## Step 8: Install Dependencies
+
+The Firebase packages are already added to package.json. Run:
 
 ```bash
 npm install
 ```
 
-## Step 8: Test Your Setup
+## Step 9: Test Your Setup
 
-1. Start your development server: `npm run dev`
-2. Try to register a new user
-3. Check the Firebase Console to see if:
-   - The user appears in Authentication
-   - The user profile is created in Firestore
-   - You can upload files to Storage
+1. Start your development server:
+```bash
+npm run dev
+```
 
-## Firebase Services Integrated
+2. Try registering a new user at `/signup`
+3. Check Firebase Console > Authentication to see the new user
+4. Check Firebase Console > Firestore to see the user profile document
 
-### Authentication
-- Email/Password authentication
-- Google Sign-In (optional)
-- Password reset functionality
-- User session management
+## Features Enabled
 
-### Firestore Database
-- User profiles
-- Workout tracking
-- Exercise logging
-- Statistics and analytics
+- User registration with email/password
+- User authentication
+- User profile storage in Firestore
+- Password reset via email
+- Secure user data access with Firestore rules
 
-### Storage
-- Profile photo uploads
-- Workout video uploads
-- File management
+## Database Collections
+
+### users
+Stores user profile information:
+- `id`: User ID (matches Firebase Auth UID)
+- `username`: Unique username
+- `email`: User email
+- `firstName`: First name
+- `lastName`: Last name
+- `fitnessLevel`: Fitness level (beginner/intermediate/advanced/athlete)
+- `goals`: Fitness goals
+- `createdAt`: Account creation timestamp
+- `lastLogin`: Last login timestamp
+- `isEmailVerified`: Email verification status
 
 ## Security Best Practices
 
-1. **Never commit your `.env.local` file** - It contains sensitive credentials
-2. **Enable Firebase App Check** for production to prevent abuse
-3. **Review and test security rules** before deploying to production
-4. **Use environment variables** for all sensitive configuration
-5. **Enable multi-factor authentication** for admin accounts
+1. Never commit `.env.local` to version control
+2. Keep your service account key secure
+3. Use Firebase Security Rules to protect data
+4. Enable App Check for additional security (optional)
+5. Set up Firebase Analytics for monitoring (optional)
 
 ## Troubleshooting
 
-### Common Issues
+### Error: "Firebase: Error (auth/api-key-not-valid)"
+- Check that your API key is correct in `.env.local`
+- Ensure you've enabled the Authentication service
 
-1. **"Firebase: Error (auth/configuration-not-found)"**
-   - Check that all environment variables are set correctly
-   - Restart your development server after updating `.env.local`
+### Error: "Missing or insufficient permissions"
+- Check your Firestore security rules
+- Ensure the user is authenticated
 
-2. **"Missing or insufficient permissions"**
-   - Review your Firestore security rules
-   - Ensure the user is authenticated before accessing protected data
+### Error: "Firebase app not initialized"
+- Restart your development server after updating environment variables
+- Check that all required environment variables are set
 
-3. **"Storage upload failed"**
-   - Check Storage security rules
-   - Verify file size limits (default: 5MB)
+## Next Steps
 
-## Additional Resources
+- Set up Firebase Storage for profile pictures and workout videos
+- Add Firebase Cloud Functions for server-side logic
+- Enable Firebase Analytics for user insights
+- Set up Firebase Hosting for deployment
+- Add Firebase Performance Monitoring
 
-- [Firebase Documentation](https://firebase.google.com/docs)
-- [Firebase Authentication Guide](https://firebase.google.com/docs/auth)
-- [Firestore Documentation](https://firebase.google.com/docs/firestore)
-- [Firebase Storage Guide](https://firebase.google.com/docs/storage)
-
-## Support
-
-For issues related to Firebase setup, please refer to the [Firebase Support](https://firebase.google.com/support) page.
+For more information, visit the [Firebase Documentation](https://firebase.google.com/docs).
