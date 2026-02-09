@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { LogoShowcase } from "@/components/logo-showcase"
-import { SupportButton } from "@/components/support-button"
+import SupportButton from "@/components/support-button"
 
 export default function LogoPage() {
   return (

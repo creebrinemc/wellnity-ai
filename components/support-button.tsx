@@ -21,20 +21,20 @@ export default function SupportButton() {
           <Button
             onClick={() => setIsOpen(true)}
             size="lg"
-            className="rounded-full w-16 h-16 bg-green-600 hover:bg-green-700 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 group"
+            className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 group"
             aria-label={t.support.title}
           >
             <MessageCircle className="h-7 w-7 group-hover:scale-110 transition-transform duration-200" />
             {/* Pulse animation */}
-            <div className="absolute inset-0 rounded-full bg-green-600 animate-ping opacity-20"></div>
+            <div className="absolute inset-0 rounded-full bg-primary animate-ping opacity-20"></div>
           </Button>
         )}
 
         {/* Enhanced Support Panel */}
         {isOpen && (
           <div className="animate-in slide-in-from-bottom-4 duration-300">
-            <Card className="w-96 shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
-              <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white rounded-t-lg relative overflow-hidden">
+            <Card className="w-96 shadow-2xl border-0 bg-card/95 backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-primary to-secondary text-white rounded-t-lg relative overflow-hidden">
                 {/* Background pattern */}
                 <div className="absolute inset-0 opacity-10">
                   <div
@@ -53,7 +53,7 @@ export default function SupportButton() {
                     </div>
                     <div>
                       <CardTitle className="text-lg font-semibold">{t.support.title}</CardTitle>
-                      <CardDescription className="text-green-100 text-sm">{t.support.subtitle}</CardDescription>
+                      <CardDescription className="text-white/80 text-sm">{t.support.subtitle}</CardDescription>
                     </div>
                   </div>
                   <Button
@@ -72,10 +72,10 @@ export default function SupportButton() {
                 {/* Status Indicators */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <Badge className="bg-green-100 text-green-800 text-xs font-medium">{t.support.onlineNow}</Badge>
+                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                    <Badge className="bg-primary/20 text-primary text-xs font-medium">{t.support.onlineNow}</Badge>
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Clock className="h-3 w-3" />
                     <span>{t.support.avgResponse}</span>
                   </div>
@@ -89,18 +89,18 @@ export default function SupportButton() {
                       alert("Live chat would open here in a real implementation")
                       setIsOpen(false)
                     }}
-                    className="w-full justify-start bg-gradient-to-r from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 border border-green-200 text-gray-900 h-auto p-4 transition-all duration-200"
+                    className="w-full justify-start bg-gradient-to-r from-primary/10 to-primary/20 hover:from-primary/20 hover:to-primary/30 border border-primary/30 text-foreground h-auto p-4 transition-all duration-200"
                     variant="outline"
                   >
                     <div className="flex items-center gap-4 w-full">
-                      <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <MessageSquare className="h-5 w-5 text-white" />
+                      <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                        <MessageSquare className="h-5 w-5 text-primary-foreground" />
                       </div>
                       <div className="text-left flex-1">
                         <div className="font-semibold text-sm">{t.support.liveChat.title}</div>
-                        <div className="text-xs text-gray-600">{t.support.liveChat.description}</div>
+                        <div className="text-xs text-muted-foreground">{t.support.liveChat.description}</div>
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-green-600">
+                      <div className="flex items-center gap-1 text-xs text-primary">
                         <Users className="h-3 w-3" />
                         <span>24/7</span>
                       </div>
@@ -113,18 +113,18 @@ export default function SupportButton() {
                       window.open("mailto:support@wellnityai.com?subject=Support Request", "_blank")
                       setIsOpen(false)
                     }}
-                    className="w-full justify-start bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 border border-blue-200 text-gray-900 h-auto p-4 transition-all duration-200"
+                    className="w-full justify-start bg-gradient-to-r from-secondary/10 to-secondary/20 hover:from-secondary/20 hover:to-secondary/30 border border-secondary/30 text-foreground h-auto p-4 transition-all duration-200"
                     variant="outline"
                   >
                     <div className="flex items-center gap-4 w-full">
-                      <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Mail className="h-5 w-5 text-white" />
+                      <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Mail className="h-5 w-5 text-secondary-foreground" />
                       </div>
                       <div className="text-left flex-1">
                         <div className="font-semibold text-sm">{t.support.emailSupport.title}</div>
-                        <div className="text-xs text-gray-600 font-mono">{t.support.emailSupport.description}</div>
+                        <div className="text-xs text-muted-foreground font-mono">{t.support.emailSupport.description}</div>
                       </div>
-                      <div className="text-xs text-blue-600">
+                      <div className="text-xs text-secondary">
                         <Clock className="h-3 w-3" />
                       </div>
                     </div>
@@ -136,18 +136,18 @@ export default function SupportButton() {
                       window.open("tel:+15551234567", "_blank")
                       setIsOpen(false)
                     }}
-                    className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 border border-purple-200 text-gray-900 h-auto p-4 transition-all duration-200"
+                    className="w-full justify-start bg-gradient-to-r from-accent/10 to-accent/20 hover:from-accent/20 hover:to-accent/30 border border-accent/30 text-foreground h-auto p-4 transition-all duration-200"
                     variant="outline"
                   >
                     <div className="flex items-center gap-4 w-full">
-                      <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Phone className="h-5 w-5 text-white" />
+                      <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Phone className="h-5 w-5 text-accent-foreground" />
                       </div>
                       <div className="text-left flex-1">
                         <div className="font-semibold text-sm">{t.support.phoneSupport.title}</div>
-                        <div className="text-xs text-gray-600 font-mono">{t.support.phoneSupport.description}</div>
+                        <div className="text-xs text-muted-foreground font-mono">{t.support.phoneSupport.description}</div>
                       </div>
-                      <div className="text-xs text-purple-600">
+                      <div className="text-xs text-accent">
                         <span>Call</span>
                       </div>
                     </div>
@@ -159,18 +159,18 @@ export default function SupportButton() {
                       alert("Help center would open here")
                       setIsOpen(false)
                     }}
-                    className="w-full justify-start bg-gradient-to-r from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 border border-orange-200 text-gray-900 h-auto p-4 transition-all duration-200"
+                    className="w-full justify-start bg-gradient-to-r from-muted to-muted hover:from-muted hover:to-muted/80 border border-border text-foreground h-auto p-4 transition-all duration-200"
                     variant="outline"
                   >
                     <div className="flex items-center gap-4 w-full">
-                      <div className="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <HelpCircle className="h-5 w-5 text-white" />
+                      <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                        <HelpCircle className="h-5 w-5 text-primary-foreground" />
                       </div>
                       <div className="text-left flex-1">
                         <div className="font-semibold text-sm">{t.support.helpCenter.title}</div>
-                        <div className="text-xs text-gray-600">{t.support.helpCenter.description}</div>
+                        <div className="text-xs text-muted-foreground">{t.support.helpCenter.description}</div>
                       </div>
-                      <div className="text-xs text-orange-600">
+                      <div className="text-xs text-primary">
                         <span>Browse</span>
                       </div>
                     </div>
@@ -198,13 +198,13 @@ export default function SupportButton() {
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 gap-3 pt-2">
-                  <div className="text-center p-3 bg-gray-50 rounded-lg">
-                    <div className="text-lg font-bold text-green-600">2min</div>
-                    <div className="text-xs text-gray-600">Avg Response</div>
+                  <div className="text-center p-3 bg-muted rounded-lg">
+                    <div className="text-lg font-bold text-primary">2min</div>
+                    <div className="text-xs text-muted-foreground">Avg Response</div>
                   </div>
-                  <div className="text-center p-3 bg-gray-50 rounded-lg">
-                    <div className="text-lg font-bold text-green-600">98%</div>
-                    <div className="text-xs text-gray-600">Satisfaction</div>
+                  <div className="text-center p-3 bg-muted rounded-lg">
+                    <div className="text-lg font-bold text-primary">98%</div>
+                    <div className="text-xs text-muted-foreground">Satisfaction</div>
                   </div>
                 </div>
               </CardContent>
@@ -216,5 +216,7 @@ export default function SupportButton() {
   )
 }
 
+// Export both default and named for compatibility
+
+
 // Add both named and default exports for compatibility
-export { SupportButton }

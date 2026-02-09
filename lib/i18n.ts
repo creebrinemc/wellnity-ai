@@ -506,6 +506,63 @@ export const translations = {
       close: "Close",
       open: "Open",
     },
+    // Privacy Policy
+    privacy: {
+      title: "Privacy Policy",
+      lastUpdated: "Last updated: February 9, 2026",
+      introduction:
+        "At Wellnity AI, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application and services. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the application.",
+      sections: {
+        dataCollection: {
+          title: "Information We Collect",
+          content: [
+            "We collect information that you provide directly to us, including your name, email address, fitness goals, workout history, and health metrics. When you use our AI-powered form correction feature, we may collect video data and movement patterns to provide personalized feedback.",
+            "We also automatically collect certain information about your device, including your IP address, device type, operating system, and app usage statistics. This helps us improve our services and provide you with a better experience.",
+          ],
+        },
+        dataUsage: {
+          title: "How We Use Your Information",
+          content: [
+            "We use the information we collect to provide, maintain, and improve our services, including personalizing your workout plans and providing AI-powered coaching. Your fitness data helps our AI algorithms learn and adapt to your unique needs.",
+            "We may also use your information to communicate with you about updates, new features, and promotional offers. You can opt out of marketing communications at any time.",
+          ],
+        },
+        dataSecurity: {
+          title: "Data Security",
+          content: [
+            "We implement enterprise-grade security measures to protect your personal information. All data transmission is encrypted using industry-standard SSL/TLS protocols. Your workout videos and health data are stored securely and are never shared without your explicit consent.",
+            "We regularly conduct security audits and update our systems to protect against unauthorized access, alteration, disclosure, or destruction of your personal information.",
+          ],
+        },
+        userRights: {
+          title: "Your Rights and Choices",
+          content: [
+            "You have the right to access, update, or delete your personal information at any time through your account settings. You can also request a copy of all data we have collected about you.",
+            "If you wish to delete your account, you can do so from the app settings. Please note that some information may be retained for legal or administrative purposes.",
+          ],
+        },
+        thirdParty: {
+          title: "Third-Party Services",
+          content: [
+            "We may share your information with trusted third-party service providers who assist us in operating our application and providing our services. These parties are bound by confidentiality agreements and are not permitted to use your information for any other purpose.",
+            "We do not sell your personal information to third parties. Any data sharing is done solely to improve your experience with Wellnity AI.",
+          ],
+        },
+        international: {
+          title: "International Data Transfers",
+          content: [
+            "Your information may be transferred to and maintained on servers located outside of your state, province, country, or other governmental jurisdiction where data protection laws may differ.",
+            "By using our services, you consent to the transfer of your information to our facilities and to the third parties with whom we share it as described in this privacy policy.",
+          ],
+        },
+      },
+      contact: {
+        title: "Contact Us",
+        description: "If you have questions or concerns about this privacy policy, please contact us:",
+        email: "Email",
+        address: "Address",
+      },
+    },
   },
   tr: {
     // Navigation
@@ -1015,6 +1072,63 @@ export const translations = {
       previous: "Önceki",
       close: "Kapat",
       open: "Aç",
+    },
+    // Privacy Policy
+    privacy: {
+      title: "Gizlilik Politikası",
+      lastUpdated: "Son güncelleme: 9 Şubat 2026",
+      introduction:
+        "Wellnity AI'da gizliliğinizi ciddiye alıyoruz. Bu Gizlilik Politikası, mobil uygulamamızı ve hizmetlerimizi kullandığınızda bilgilerinizi nasıl topladığımızı, kullandığımızı, ifşa ettiğimizi ve koruduğumuzu açıklar. Lütfen bu gizlilik politikasını dikkatlice okuyun. Bu gizlilik politikasının şartlarını kabul etmiyorsanız, lütfen uygulamaya erişmeyin.",
+      sections: {
+        dataCollection: {
+          title: "Topladığımız Bilgiler",
+          content: [
+            "Doğrudan bize sağladığınız bilgileri topluyoruz; bunlar arasında adınız, e-posta adresiniz, fitness hedefleriniz, antrenman geçmişiniz ve sağlık ölçümleriniz bulunur. AI destekli form düzeltme özelliğimizi kullandığınızda, kişiselleştirilmiş geri bildirim sağlamak için video verileri ve hareket kalıpları toplayabiliriz.",
+            "Ayrıca cihazınız hakkında IP adresiniz, cihaz türü, işletim sistemi ve uygulama kullanım istatistikleri gibi belirli bilgileri otomatik olarak topluyoruz. Bu, hizmetlerimizi geliştirmemize ve size daha iyi bir deneyim sunmamıza yardımcı olur.",
+          ],
+        },
+        dataUsage: {
+          title: "Bilgilerinizi Nasıl Kullanıyoruz",
+          content: [
+            "Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek için kullanıyoruz; buna antrenman planlarınızı kişiselleştirmek ve AI destekli koçluk sağlamak dahildir. Fitness verileriniz, AI algoritmalarımızın öğrenmesine ve benzersiz ihtiyaçlarınıza uyum sağlamasına yardımcı olur.",
+            "Bilgilerinizi güncellemeler, yeni özellikler ve promosyon teklifleri hakkında sizinle iletişim kurmak için de kullanabiliriz. İstediğiniz zaman pazarlama iletişimlerinden çıkabilirsiniz.",
+          ],
+        },
+        dataSecurity: {
+          title: "Veri Güvenliği",
+          content: [
+            "Kişisel bilgilerinizi korumak için kurumsal düzeyde güvenlik önlemleri uyguluyoruz. Tüm veri iletimi, endüstri standardı SSL/TLS protokolleri kullanılarak şifrelenir. Antrenman videolarınız ve sağlık verileriniz güvenli bir şekilde saklanır ve açık onayınız olmadan asla paylaşılmaz.",
+            "Yetkisiz erişim, değiştirme, ifşa veya kişisel bilgilerinizin yok edilmesine karşı koruma sağlamak için düzenli olarak güvenlik denetimleri yapıyor ve sistemlerimizi güncelliyoruz.",
+          ],
+        },
+        userRights: {
+          title: "Haklarınız ve Seçenekleriniz",
+          content: [
+            "Hesap ayarlarınızdan istediğiniz zaman kişisel bilgilerinize erişme, güncelleme veya silme hakkına sahipsiniz. Ayrıca hakkınızda topladığımız tüm verilerin bir kopyasını talep edebilirsiniz.",
+            "Hesabınızı silmek isterseniz, bunu uygulama ayarlarından yapabilirsiniz. Bazı bilgilerin yasal veya idari amaçlarla saklanabileceğini lütfen unutmayın.",
+          ],
+        },
+        thirdParty: {
+          title: "Üçüncü Taraf Hizmetleri",
+          content: [
+            "Uygulamamızı çalıştırmamıza ve hizmetlerimizi sağlamamıza yardımcı olan güvenilir üçüncü taraf hizmet sağlayıcılarla bilgilerinizi paylaşabiliriz. Bu taraflar gizlilik anlaşmalarıyla bağlıdır ve bilgilerinizi başka bir amaç için kullanmalarına izin verilmez.",
+            "Kişisel bilgilerinizi üçüncü taraflara satmıyoruz. Herhangi bir veri paylaşımı yalnızca Wellnity AI ile deneyiminizi geliştirmek için yapılır.",
+          ],
+        },
+        international: {
+          title: "Uluslararası Veri Transferleri",
+          content: [
+            "Bilgileriniz, veri koruma yasalarının farklı olabileceği eyaletiniz, iliniz, ülkeniz veya diğer hükümet yetki alanınız dışında bulunan sunuculara aktarılabilir ve burada tutulabilir.",
+            "Hizmetlerimizi kullanarak, bilgilerinizin tesislerimize ve bu gizlilik politikasında açıklandığı şekilde paylaştığımız üçüncü taraflara aktarılmasına izin vermiş olursunuz.",
+          ],
+        },
+      },
+      contact: {
+        title: "Bize Ulaşın",
+        description: "Bu gizlilik politikası hakkında sorularınız veya endişeleriniz varsa, lütfen bizimle iletişime geçin:",
+        email: "E-posta",
+        address: "Adres",
+      },
     },
   },
 }
