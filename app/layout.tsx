@@ -10,7 +10,10 @@ export const metadata: Metadata = {
   title: "Wellnity AI - Kişisel AI Fitness Koçunuz",
   description:
     "Kişiselleştirilmiş AI koçluğu, akıllı antrenman planları ve gerçek zamanlı form düzeltmesi ile fitness yolculuğunuzu dönüştürün.",
-    generator: 'v0.app'
+  generator: "v0.app",
+  verification: {
+    google: "sR0JbR_sVsI6N7DSGIbkMTK4nq6Lcrb8n4aANwsD5Q0",
+  },
 }
 
 export default function RootLayout({
