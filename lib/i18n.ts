@@ -563,6 +563,39 @@ export const translations = {
         address: "Address",
       },
     },
+    // Delete Account
+    deleteAccount: {
+      title: "Delete Account",
+      subtitle: "Request permanent deletion of your Wellnity AI account",
+      warning:
+        "Warning: Account deletion is permanent and cannot be undone. All your data, workouts, and progress will be permanently deleted.",
+      emailSubject: "Account Deletion Request",
+      emailBody: "I would like to request the deletion of my Wellnity AI account. Please find my details below:",
+      emailFooter: "Please confirm once my account has been deleted. Thank you.",
+      notProvided: "Not provided",
+      form: {
+        title: "Account Deletion Request",
+        description: "Please provide at least one of the following details to help us identify your account.",
+        username: "Username",
+        usernamePlaceholder: "Enter your username",
+        email: "Email Address",
+        emailPlaceholder: "Enter your email address",
+        phone: "Phone Number",
+        phonePlaceholder: "Enter your phone number",
+        submit: "Send Deletion Request",
+        note: "Clicking this button will open your default email client with a pre-filled deletion request.",
+      },
+      info: {
+        title: "What happens when you delete your account?",
+        point1: "All your personal information and profile data will be permanently deleted",
+        point2: "Your workout history, progress, and achievements will be removed",
+        point3: "Any active subscriptions will be cancelled",
+        point4: "You will receive a confirmation email once the deletion is complete (within 30 days)",
+      },
+      contact: {
+        text: "Need help or have questions?",
+      },
+    },
   },
   tr: {
     // Navigation
@@ -1128,6 +1161,39 @@ export const translations = {
         description: "Bu gizlilik politikası hakkında sorularınız veya endişeleriniz varsa, lütfen bizimle iletişime geçin:",
         email: "E-posta",
         address: "Adres",
+      },
+    },
+    // Delete Account
+    deleteAccount: {
+      title: "Hesabı Sil",
+      subtitle: "Wellnity AI hesabınızın kalıcı olarak silinmesini talep edin",
+      warning:
+        "Uyarı: Hesap silme işlemi kalıcıdır ve geri alınamaz. Tüm verileriniz, antrenmanlarınız ve ilerlemeniz kalıcı olarak silinecektir.",
+      emailSubject: "Hesap Silme Talebi",
+      emailBody: "Wellnity AI hesabımın silinmesini talep etmek istiyorum. Bilgilerim aşağıda bulunmaktadır:",
+      emailFooter: "Hesabım silindikten sonra lütfen onaylayın. Teşekkür ederim.",
+      notProvided: "Sağlanmadı",
+      form: {
+        title: "Hesap Silme Talebi",
+        description: "Hesabınızı tanımlamamıza yardımcı olmak için lütfen aşağıdaki bilgilerden en az birini sağlayın.",
+        username: "Kullanıcı Adı",
+        usernamePlaceholder: "Kullanıcı adınızı girin",
+        email: "E-posta Adresi",
+        emailPlaceholder: "E-posta adresinizi girin",
+        phone: "Telefon Numarası",
+        phonePlaceholder: "Telefon numaranızı girin",
+        submit: "Silme Talebi Gönder",
+        note: "Bu düğmeye tıklandığında, önceden doldurulmuş bir silme talebiyle varsayılan e-posta istemciniz açılacaktır.",
+      },
+      info: {
+        title: "Hesabınızı sildiğinizde ne olur?",
+        point1: "Tüm kişisel bilgileriniz ve profil verileriniz kalıcı olarak silinecek",
+        point2: "Antrenman geçmişiniz, ilerlemeniz ve başarılarınız kaldırılacak",
+        point3: "Aktif abonelikleriniz iptal edilecek",
+        point4: "Silme işlemi tamamlandığında (30 gün içinde) bir onay e-postası alacaksınız",
+      },
+      contact: {
+        text: "Yardıma mı ihtiyacınız var veya sorularınız mı var?",
       },
     },
   },
