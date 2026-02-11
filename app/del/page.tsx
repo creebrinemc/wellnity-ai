@@ -36,7 +36,7 @@ ${t.deleteAccount.emailFooter}
     `.trim()
 
     const subject = t.deleteAccount.emailSubject
-    const mailto = `mailto:support@wellnityai.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`
+    const mailto = `mailto:cagmancinar20+wai@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`
 
     window.location.href = mailto
   }
@@ -149,8 +149,8 @@ ${t.deleteAccount.emailFooter}
           <div className="mt-6 text-center">
             <p className="text-sm text-muted-foreground">
               {t.deleteAccount.contact.text}{" "}
-              <a href="mailto:support@wellnityai.com" className="text-primary hover:underline">
-                support@wellnityai.com
+              <a href="mailto:cagmancinar20+wai@gmail.com" className="text-primary hover:underline">
+                cagmancinar20+wai@gmail.com
               </a>
             </p>
           </div>
